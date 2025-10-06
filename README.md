@@ -5,7 +5,7 @@
 ---
 
 ### 🎮 How to play
-- Run the executable `Days-of-Survival-Final.exe`  
+- Run the executable `Days-of-Survival.exe`  
 - Type the number of your choice and press ENTER  
 - Multiple endings
 
