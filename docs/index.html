@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c1416">
+<meta name="description" content="Days of Survival — an interactive zombie survival story. Free playable beta.">
+<title>Days of Survival · Beta</title>
+<style>
+:root{color-scheme:dark;--bg:#0c1416;--raised:#132023;--raised2:#17272a;--line:#304146;--fg:#f5eee0;--muted:#9eada9;--accent:#d2ae72;--accent2:#88b6a4;--warn:#e19075;--font:Georgia,'Times New Roman',serif;--ui:system-ui,-apple-system,'Segoe UI',sans-serif}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ui);min-height:100vh;min-height:100dvh;overflow-x:hidden}button,select,textarea,input{font:inherit}button{cursor:pointer}button:disabled{cursor:default}button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}button{touch-action:manipulation}a{color:var(--accent)}
+.app{min-height:100vh;min-height:100dvh;position:relative;isolation:isolate}.ambient{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 66% 65% at 84% 8%,#35505233,transparent),linear-gradient(145deg,#0a1113,#132023 65%,#0b1114)}.ambient:after{content:"";position:absolute;inset:0;opacity:.24;pointer-events:none;background-image:repeating-linear-gradient(0deg,transparent 0 3px,#ffffff08 4px 4px)}
+.topbar{padding:20px clamp(20px,4vw,76px);display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #758b8640}.brand{font-size:13px;letter-spacing:.28em;font-weight:750;text-transform:uppercase;display:flex;align-items:center;gap:11px}.brand-mark{width:24px;height:24px;border:1px solid var(--accent);border-radius:50%;display:grid;place-items:center;color:var(--accent);font-size:13px}.top-right{display:flex;align-items:center;gap:11px;flex-wrap:wrap;justify-content:flex-end}.eyebrow{font-size:10px;letter-spacing:.27em;font-weight:750;text-transform:uppercase;color:var(--accent)}.beta-tag{font-family:var(--ui);font-size:10px;letter-spacing:.15em;padding:6px 9px;border:1px solid #a8a18a55;color:#c7bda6}.text-button{background:none;border:0;color:var(--muted);padding:9px 11px;border-radius:4px;font-size:12px;letter-spacing:.03em}.text-button:hover{color:white;background:#ffffff12}.shell{width:min(1190px,calc(100% - 48px));margin:0 auto}.view[hidden],.overlay[hidden],.scene-aside[hidden],.ending-card[hidden],.feedback-result[hidden],.saved-tag[hidden]{display:none!important}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.9fr);min-height:min(740px,calc(100dvh - 103px));gap:48px;align-items:center;position:relative}.hero-copy{padding:68px 0 96px;z-index:1}.hero .eyebrow{margin-bottom:25px;display:block}.hero h1{font-family:var(--font);font-weight:500;line-height:.91;letter-spacing:-.075em;font-size:clamp(65px,9.4vw,126px);margin:0 0 26px;text-shadow:0 3px 36px #0005}.hero h1 em{display:block;font-weight:400;color:var(--accent);font-style:italic;margin-left:.31em}.hero-lead{color:#bdc9bf;font-family:var(--font);font-size:clamp(17px,2vw,22px);line-height:1.52;max-width:460px}.hero-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:32px 0 25px}.primary{border:1px solid #e6c792;background:var(--accent);color:#142022;padding:15px 22px;font-weight:780;text-transform:uppercase;letter-spacing:.14em;font-size:11px;min-width:170px}.primary:hover{background:#e4c18d}.secondary{border:1px solid #899b9472;color:var(--fg);background:#15232590;padding:14px 18px;text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:700}.secondary:hover{background:#2c4142}.hero-note{font-size:11px;line-height:1.7;color:var(--muted);letter-spacing:.03em}.art{height:550px;position:relative;align-self:end;overflow:hidden;mask-image:linear-gradient(0deg,#000 35%,#000 85%,transparent 100%);filter:drop-shadow(0 0 60px #587e6645)}.art .sky{position:absolute;inset:0;background:radial-gradient(circle at 52% 23%,#b5bd9155,transparent 7%),radial-gradient(ellipse 35% 42% at 55% 17%,#4d726c60,transparent 75%),linear-gradient(0deg,#121e21 10%,#36545644 73%,transparent);mask-image:linear-gradient(to top,#000 30%,transparent 100%)}.art .haze{position:absolute;width:130%;height:180px;bottom:27%;left:-10%;background:linear-gradient(0deg,#1f353587,transparent);filter:blur(25px)}.art .city{position:absolute;inset:auto 0 0;height:75%;background:#0a1416;clip-path:polygon(0 37%,5% 37%,5% 26%,12% 26%,12% 45%,16% 45%,16% 20%,19% 20%,19% 12%,22% 12%,22% 39%,28% 39%,28% 18%,34% 18%,34% 44%,37% 44%,37% 30%,42% 30%,42% 7%,46% 7%,46% 0,49% 7%,49% 30%,54% 30%,54% 46%,58% 46%,58% 22%,64% 22%,64% 38%,71% 38%,71% 11%,77% 11%,77% 32%,80% 32%,80% 25%,87% 25%,87% 41%,94% 41%,94% 16%,100% 16%,100% 100%,0 100%)}.art .city-back{bottom:7%;opacity:.38;transform:scale(1.12);background:#4f6762;filter:blur(4px)}.art .ground{position:absolute;inset:auto -10% 0;height:110px;background:linear-gradient(#0b1517,#071012);transform:skewY(-4deg)}.art .person{position:absolute;bottom:60px;left:52%;height:166px;width:24px;background:#050b0e;border-radius:14px 11px 5px 5px;transform:rotate(-3deg);box-shadow:14px 95px 0 -5px #050b0e,-9px 93px 0 -5px #050b0e}.art .person:before{content:"";display:block;width:33px;height:33px;background:#050b0e;border-radius:50%;position:absolute;top:-30px;left:-4px}.art .person:after{content:"";position:absolute;top:26px;left:-15px;width:52px;height:13px;border-radius:8px;background:#050b0e;transform:rotate(-21deg)}.art .light{position:absolute;bottom:185px;left:53.7%;width:290px;height:85px;background:linear-gradient(90deg,#e1c68f45,transparent);clip-path:polygon(0 45%,100% 0,100% 100%);transform:rotate(-6deg);filter:blur(2px);mix-blend-mode:screen}.art-label{position:absolute;right:26px;bottom:20px;font-size:10px;letter-spacing:.25em;color:#b4a88b8f}
+.footer{padding:24px 0 36px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;border-top:1px solid #c8d7c31a;color:#879a99;font-size:11px;letter-spacing:.05em}
+.play-shell{padding-top:38px;padding-bottom:55px;display:grid;grid-template-columns:238px minmax(0,1fr);gap:35px;align-items:start}.sidebar{position:sticky;top:20px;background:#111c1ee8;border:1px solid #35474a77;padding:24px;min-height:470px}.sidebar .eyebrow{color:#81958e}.sidebar h2{font-family:var(--font);font-weight:400;font-size:30px;line-height:1.03;letter-spacing:-.035em;margin:16px 0 13px}.sidebar p{color:var(--muted);font-size:12px;line-height:1.7}.side-divider{height:1px;background:#5062605a;margin:25px 0}.stats{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:11px 0;font-size:12px;color:#a9bbb5}.stats strong{font-size:14px;color:var(--fg);font-weight:500}.tiny{font-size:10px;color:var(--muted);line-height:1.7}.side-actions{display:grid;gap:6px;margin-top:15px}.side-actions .secondary,.side-actions .text-button{width:100%;text-align:left}.kbd{display:inline-block;border:1px solid #87989070;padding:2px 6px;border-radius:3px;font-size:10px;margin-right:3px}
+.story-panel{background:linear-gradient(165deg,#182729d6,#111b1ed6);border:1px solid #3c4f4d;box-shadow:0 30px 100px #0004;min-width:0}.panel-banner{height:160px;position:relative;overflow:hidden;background:radial-gradient(ellipse 40% 70% at 78% 33%,#ad907e22,transparent),linear-gradient(135deg,#263c3e,#182629 60%,#1a2728)}.panel-banner:after{content:"";position:absolute;inset:auto 0 0;height:66px;background:linear-gradient(transparent,#182729)}.banner-lines{position:absolute;inset:0;opacity:.28;background:repeating-linear-gradient(105deg,transparent,transparent 47px,#a6a58e22 48px,#a6a58e22 49px)}.banner-silhouette{position:absolute;bottom:-8px;right:10%;font-family:var(--font);font-size:clamp(80px,15vw,165px);line-height:1;color:#b9b3a215;user-select:none}.banner-label{position:absolute;top:20px;left:30px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#d5b990}.panel-body{padding:0 clamp(24px,4.1vw,54px) 45px;position:relative}.scene-counter{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid #72868045;padding:19px 0;margin-bottom:23px;text-transform:uppercase;font-size:10px;color:#a5b8b1;letter-spacing:.19em}.scene-counter .index{color:var(--accent)}.scene-title{font-family:var(--font);font-size:clamp(32px,4.2vw,49px);font-weight:400;letter-spacing:-.038em;line-height:1.08;margin:0 0 25px}.consequence{border-left:2px solid var(--accent);background:#9ca87f11;padding:12px 16px;font-size:13px;line-height:1.6;color:#e3c99e;margin-bottom:22px;white-space:pre-line}.narration{font-family:var(--font);font-size:clamp(16px,1.65vw,19px);line-height:1.78;letter-spacing:.005em;color:#e1e6db;white-space:pre-line;min-height:100px;overflow-wrap:anywhere}.cursor:after{content:'▋';display:inline-block;margin-left:2px;vertical-align:baseline;color:var(--accent);animation:blink .8s steps(1) infinite;font-size:.8em}@keyframes blink{50%{opacity:0}}.narration-finish{margin:14px 0 18px;min-height:28px}.narration-finish button{border:0;padding:4px 0;background:transparent;color:#a6b5ad;text-decoration:underline;text-decoration-color:#647c7460;font-size:11px;letter-spacing:.1em}.narration-finish button:hover{color:#e6d5b6}.decision-title{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--accent);margin:12px 0 15px}.choices{display:grid;gap:10px}.choice{display:flex;align-items:center;gap:17px;text-align:left;padding:17px 18px;border:1px solid #5467627b;background:#24343774;color:var(--fg);width:100%;transition:background .18s,border-color .18s,transform .18s}.choice:hover{border-color:var(--accent);background:#31413b;transform:translateX(3px)}.choice-number{font:400 20px var(--font);color:var(--accent);flex:0 0 24px}.choice-label{flex:1;font-size:13px;line-height:1.5}.choice-arrow{color:var(--accent);font-size:19px}.ending-card{margin-top:22px;padding:20px;border:1px solid #b8ac8260;background:#d2ae7212;display:flex;gap:18px;align-items:center}.ending-symbol{font-family:var(--font);font-size:52px;color:var(--accent)}.ending-card h3{font-family:var(--font);font-size:27px;margin:4px 0;font-weight:400}.ending-card p{margin:0;color:#b9c5bc;font-size:12px}.ending-card.death{background:#bc6d5a13;border-color:#c583725c}.ending-card.death .ending-symbol{color:var(--warn)}.ending-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.overlay{position:fixed;inset:0;background:#050c0fce;z-index:30;display:grid;place-items:center;padding:18px;overflow-y:auto;backdrop-filter:blur(7px)}.modal{width:min(530px,100%);max-height:min(90vh,780px);overflow-y:auto;background:#152326;border:1px solid #586964;box-shadow:0 30px 100px #000b;padding:clamp(20px,4vw,36px)}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.close{background:transparent;border:1px solid #65766c64;color:var(--fg);font-size:20px;line-height:1;width:34px;height:34px}.modal h2{font-family:var(--font);font-size:34px;font-weight:400;line-height:1.2;margin:0 0 16px}.modal p,.modal li{line-height:1.7;color:#bfcac0;font-size:13px}.modal ul{padding-left:20px}.form-field{display:grid;gap:8px;margin:20px 0}.form-field label{font-size:11px;letter-spacing:.12em;font-weight:700;color:#dcc392;text-transform:uppercase}.form-field textarea,.form-field select{background:#0d181b;color:#eee8db;border:1px solid #546763;padding:12px;width:100%;border-radius:0}.form-field textarea{min-height:108px;resize:vertical}.rating{display:flex;gap:7px}.rating button{background:#0e191a;color:#c0cabe;border:1px solid #4d635d;padding:9px 12px;min-width:40px}.rating button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#122024}.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}.form-actions .primary{flex:1}.feedback-result{margin-top:17px;white-space:pre-wrap;word-wrap:break-word;background:#0c1517;border:1px solid #547067;padding:12px;font-size:11px;line-height:1.5;max-height:220px;overflow:auto;color:#dce4d6}.notice{margin-top:16px;color:#e5c38a;font-size:12px;min-height:15px}.skip-link{position:absolute;left:-999px;top:0;z-index:50;padding:10px;background:var(--accent);color:#000}.skip-link:focus{left:12px}
+@media(max-width:860px){.hero{grid-template-columns:1fr;min-height:650px}.art{position:absolute;inset:auto -30px 0 auto;width:53%;height:430px;opacity:.45;z-index:0}.hero-copy{padding:75px 0 95px}.play-shell{grid-template-columns:1fr;gap:15px}.sidebar{position:static;min-height:0;display:grid;grid-template-columns:1fr auto;gap:0 16px}.sidebar h2{font-size:20px;margin:8px 0}.sidebar p{margin:0}.side-divider,.sidebar .tiny,.sidebar .stats{display:none}.side-actions{margin:0;align-self:center}.side-actions .secondary{min-width:110px}.panel-banner{height:115px}}
+@media(max-width:560px){.topbar{padding:14px 16px}.brand{font-size:11px;letter-spacing:.17em}.top-right{gap:2px}.beta-tag{display:none}.shell{width:calc(100% - 28px)}.hero{min-height:calc(100dvh - 120px)}.hero-copy{padding:45px 0 140px}.hero h1{font-size:clamp(61px,18vw,95px)}.hero-lead{font-size:17px;max-width:320px}.art{height:350px;width:86%;opacity:.3}.hero-actions{flex-direction:column;align-items:stretch;max-width:300px}.hero-actions button{width:100%}.sidebar{padding:12px 15px}.sidebar h2{font-size:18px}.sidebar .eyebrow,.sidebar p{display:none}.sidebar .side-actions .text-button{display:none}.panel-body{padding:0 20px 30px}.panel-banner{height:88px}.scene-title{font-size:33px}.narration{font-size:17px;line-height:1.65}.choice{padding:15px 12px}.choice-label{font-size:13px}.footer{font-size:10px;padding-top:16px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a href="#content" class="skip-link">Skip to content</a>
+<div class="app">
+<div class="ambient" aria-hidden="true"></div>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark" aria-hidden="true">✳</span> D / S <span style="font-weight:400;color:#84968f;letter-spacing:.06em">INTERACTIVE FICTION</span></div>
+  <div class="top-right"><span class="beta-tag">PLAYTEST BETA · 0.1</span><button class="text-button" id="help-btn">How to play</button><button class="text-button" id="feedback-top">Feedback ↗</button></div>
+</header>
+<main id="content">
+<section class="view shell" id="menu-view">
+  <div class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">A story about the choices you make</span>
+      <h1>DAYS <em>OF</em> SURVIVAL<span style="color:var(--accent);font-size:.45em;vertical-align:super">.</span></h1>
+      <p class="hero-lead">The city is falling apart. Someone is knocking at your door. Every decision brings you closer to survival — or the end.</p>
+      <div class="hero-actions"><button class="primary" id="start-btn">Begin story →</button><button class="secondary" id="continue-btn" hidden>Continue story</button></div>
+      <div class="hero-note">A free interactive story · Multiple endings · Original story in English<br>Estimated playtime: 5–12 minutes per run · No downloads required</div>
+    </div>
+    <div class="art" aria-hidden="true"><div class="sky"></div><div class="haze"></div><div class="city city-back"></div><div class="city"></div><div class="light"></div><div class="person"></div><div class="ground"></div><div class="art-label">DAY 01 · UNKNOWN LOCATION</div></div>
+  </div>
+  <div class="footer"><span>© Days of Survival · Story by its creator · Beta edition</span><span>Survive the story. Shape what comes next.</span></div>
+</section>
+<section class="view shell play-shell" id="play-view" hidden>
+  <aside class="sidebar" aria-label="Story information">
+    <div><div class="eyebrow">FIELD JOURNAL</div><h2>Stay alive.<br>Make it count.</h2><p>No choice comes without consequences.</p></div>
+    <div class="side-divider"></div><div class="stats">Scenes visited <strong id="visited">01</strong></div><div class="stats">Decisions made <strong id="decisions">00</strong></div><div class="stats">Current outcome <strong id="status">Unknown</strong></div>
+    <div class="side-divider"></div><div class="tiny">TIP: press <span class="kbd">1</span> <span class="kbd">2</span> <span class="kbd">3</span> to choose. Press <span class="kbd">Space</span> to reveal text.</div>
+    <div class="side-actions"><button class="secondary" id="menu-btn">← Main menu</button><button class="text-button" id="restart-btn">Start over</button></div>
+  </aside>
+  <article class="story-panel">
+    <div class="panel-banner"><div class="banner-lines"></div><div class="banner-silhouette" id="banner-symbol" aria-hidden="true">✢</div><div class="banner-label" id="act-label">DAY 01 / THE OUTBREAK</div></div>
+    <div class="panel-body">
+      <div class="scene-counter"><span>RECOVERED RECORD <span class="index" id="scene-number">01</span></span><span id="scene-location">LOCATION UNKNOWN</span></div>
+      <h1 class="scene-title" id="scene-title"></h1>
+      <div class="consequence" id="consequence" hidden></div>
+      <div class="narration" id="narration" aria-live="off"></div>
+      <div class="narration-finish"><button id="skip-btn">Reveal all text ↓</button></div>
+      <div id="choices-wrapper" hidden><div class="decision-title">What will you do?</div><div class="choices" id="choices"></div></div>
+      <div class="ending-card" id="ending-card" hidden><div class="ending-symbol" id="ending-icon" aria-hidden="true">✚</div><div><span class="eyebrow" id="ending-label">STORY COMPLETE</span><h3 id="ending-title">You survived.</h3><p id="ending-desc">Your decisions led you here.</p></div></div>
+      <div class="ending-actions" id="ending-actions" hidden><button class="primary" id="again-btn">Try another path ↗</button><button class="secondary" id="feedback-end">Share your feedback</button></div>
+    </div>
+  </article>
+</section>
+</main>
+</div>
+<div class="overlay" id="modal-overlay" hidden>
+  <div class="modal" id="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-head"><div class="eyebrow" id="modal-eyebrow">DAYS OF SURVIVAL</div><button class="close" id="modal-close" aria-label="Close dialog">×</button></div>
+    <div id="help-modal" hidden><h2 id="modal-title">The rules are simple.</h2><p>Read the story and choose how to respond. Every choice takes you to a different scene, and your actions will determine how it ends.</p><ul><li>Click a response or press the matching number on your keyboard.</li><li>Press Space to reveal the rest of the text instantly.</li><li>Your current scene is saved locally on this device.</li><li>After an ending, you can start again and explore another route.</li></ul><p>This is an early beta. Some story elements may change in later releases.</p><div class="form-actions"><button class="primary" id="help-done">Understood →</button></div></div>
+    <div id="feedback-modal" hidden><h2 id="modal-title-feedback">Help shape the next version.</h2><p>I'd love to hear what worked, what confused you, and what you want more of. This beta doesn't send anything automatically — copy your feedback and share it with the creator.</p>
+      <div class="form-field"><label for="rating-holder">How was your experience?</label><div class="rating" id="rating-holder" role="group" aria-label="Rating from 1 to 5"><button data-rating="1" aria-pressed="false">1</button><button data-rating="2" aria-pressed="false">2</button><button data-rating="3" aria-pressed="false">3</button><button data-rating="4" aria-pressed="false">4</button><button data-rating="5" aria-pressed="false">5</button></div></div>
+      <div class="form-field"><label for="liked">What stood out?</label><select id="liked"><option value="Story / atmosphere">Story / atmosphere</option><option value="Decisions and endings">Decisions and endings</option><option value="Visual style">Visual style</option><option value="Characters">Characters</option><option value="Bugs or usability issues">Bugs or usability issues</option></select></div>
+      <div class="form-field"><label for="feedback-text">Ideas, issues or suggestions</label><textarea id="feedback-text" placeholder="A moment I enjoyed, something that didn't make sense, a new idea..." maxlength="2500"></textarea></div>
+      <div class="form-actions"><button class="primary" id="feedback-copy">Copy feedback</button><button class="secondary" id="feedback-preview">Preview</button></div>
+      <div class="feedback-result" id="feedback-result" hidden></div><div class="notice" id="feedback-notice" role="status"></div>
+    </div>
+    <div id="restart-modal" hidden><h2 id="modal-title-restart">Start from the beginning?</h2><p>Your current progress will be replaced. You can explore a different route and find another ending.</p><div class="form-actions"><button class="secondary" id="restart-cancel">Keep playing</button><button class="primary" id="restart-confirm">Restart story →</button></div></div>
+  </div>
+</div>
+<script type="application/json" id="story-data">{"version":"0.1-beta","start":"Introduction","scenes":{"Introduction":{"title":"Waking up","narration":"You wake up in your bed after an afternoon nap.\nYou hear sirens and chaos in the streets outside. Curiosity urges you to investigate.\nWhat do you do?\n","ending":"none","choices":[{"text":"Go outside and see what's happening.","next":"Outside","consequence":""},{"text":"Look up news online.","next":"ReadNews","consequence":""},{"text":"Call your friend Alex.","next":"TalkToAlex","consequence":""}]},"Outside":{"title":"Go outside","narration":"You go outside and see panic and chaos. People seem to be running away from something.\nAuthorities are present, but they seem overwhelmed.\nDo you:\n","ending":"none","choices":[{"text":"Go back inside and lock the door.","next":"Introduction","consequence":"You go back inside and lock the door. Luckily, you made your monthly grocery run yesterday."},{"text":"Go towards the chaos because you're very brave (Or very stupid)","next":"OutsideDeath","consequence":""}]},"OutsideDeath":{"title":"Going toward the chaos","narration":"You walk straight to where people are running from, like a hero in a movie. (Or a real world lunatic)\nYou see 3 men running towards you, looking very angry and definitely not in their right minds.\nApparently, you lack the common sense of a normal person, so you don't think to run away.\nTurns out, they were 'zombies'. They knock you down and munch you to death.\n","ending":"death","choices":[]},"ReadNews":{"title":"Look up news online","narration":"You grab your phone. Official news sites are slow to update.\nSocial media, however, is exploding with videos of people attacking each other.\nSome people are calling it a 'zombie outbreak', but... Is that even possible?\nYour phone rings — it's your friend Alex, who lives nearby.\nDo you:\n","ending":"none","choices":[{"text":"Answer the call.","next":"TalkToAlex","consequence":""},{"text":"Ignore it and keep looking for news.","next":"AlexArrives","consequence":"You ignore the call. Moments later, someone bangs on your door.\nIt's Alex. He yells: 'Open up! It's me!'"}]},"TalkToAlex":{"title":"Call Alex","narration":"Your friend Alex starts spitting info almost immediately.\n'Dude, have you seen the videos? It's a zombie outbreak! They're everywhere in the city!'\n'We can make a safehouse at your place, it's got a good view of the street and we can reinforce the gates!'\n(You don't know if he's very nervous or actually excited. You know him for being an FPS gaming nerd)\nDo you:\n","ending":"none","choices":[{"text":"Agree to meet him and fortify your apartment","next":"AlexArrives","consequence":"'I'm already on my way!' Alex says and hangs up."},{"text":"Make static noises and pretend your phone has a bad connection","next":"AlexArrives","consequence":"Alex doesn't buy it. 'Cut the crap, I'm heading over now!'"}]},"AlexArrives":{"title":"Alex arrives","narration":"A few minutes later, Alex bursts through the door.\nHe looks like an unlockable character from a video game.\nHe drops a military backpack on your table.\nInside: a first aid kit, flashlight, canned food, and a crowbar.\nHe then opens a gym bag and it has special hardened clothes, two pistols with extra magazines, and a baseball bat.\nDo you:\n","ending":"none","choices":[{"text":"Reinforce the apartment.","next":"FortifyApartment","consequence":""},{"text":"Suggest leaving the city immediately.","next":"EscapeCity","consequence":""}]},"FortifyApartment":{"title":"Fortify the apartment","narration":"You both start barricading doors and windows with furniture.\nHours pass. The city burns outside. The night is silent... too silent.\nSuddenly, you hear gunshots in the street.\nYou wonder if it's another survivor in danger...\nAs you peek out the window, you do see a couple survivors running for their lives...\nBut what's chasing them surprises you... It's a group of military personnel!\nAs they run away, the military men shoot them on their backs...\nYou're both in shock. You hear a radio transmission:\n'All units, contain the outbreak at all costs. No one is to leave the city.'\nThe situation is worse than you thought.\nDo you:\n","ending":"none","choices":[{"text":"Stay inside and wait for the situation to change.","next":"ApartmentUnderSiege","consequence":""},{"text":"Try to escape the city while you still can.","next":"EscapeCity","consequence":""}]},"ApartmentUnderSiege":{"title":"Apartment under siege","narration":"You decide to stay put. Another day passes, and you hear more gunshots outside.\nYou can tell that zombies and the military are clashing frequently now.\nSuddenly, there's a blackout. You hear explosions nearby.\nThere's various explosions around, and then, a loud explosion right outside your building.\nCar alarms go off in your building parking lot. Zombies are gathering outside, attracted by the noise.\nYou and Alex prepare to defend yourselves, but there are too many.\nAlex says: 'The gate won't hold. We have to make a run for it!'\nDo you:\n","ending":"none","choices":[{"text":"Make a run for it with Alex.","next":"EscapeFromHorde","consequence":""},{"text":"Hope the gate holds and stay inside.","next":"GateDeath","consequence":""}]},"GateDeath":{"title":"Gate collapses","narration":"The gate collapses under the weight of the zombies.\nThey swarm in, before you can react.\nIn a matter of seconds, you and Alex are ripped apart.\n","ending":"death","choices":[]},"EscapeCity":{"title":"Escape the city","narration":"You convince Alex to leave. You both pack essentials and sneak out.\nThe streets are chaos, but you manage to reach Alex's car.\nYou try to drive away, but there's barricades and abandoned vehicles blocking the road.\nYou hear sirens in the distance... Maybe the authorities are finally responding.\nDo you:\n","ending":"none","choices":[{"text":"Go towards the sirens and try to get help.","next":"HospitalDeath","consequence":""},{"text":"Keep going on foot.","next":"MilitaryCheckpoint","consequence":""}]},"HospitalDeath":{"title":"Hospital","narration":"The sirens come from the local hospital. You run towards the hospital.\nWhen you get there, no one is left. The place is overrun.\nZombies notice you and start to surround you.\nYou flee as fast as you can, but they are still chasing you.\nAlex points to a grocery store. 'We can hide there!'\nYou both manage to get inside, and see the zombies pass by the store...\nWhat you didn't see, was the store owner, who was also hiding inside, armed and in fear...\nAs you're still focused on the zombies outside, the owner doesn't hesitate to shoot you both.\n","ending":"death","choices":[]},"MilitaryCheckpoint":{"title":"Military checkpoint","narration":"You manage to defend yourselves against the zombies, thanks to the equipment Alex shared with you.\nAfter hours of running and hiding, you both reach the main road out of the city.\nYou see a military checkpoint up ahead, with soldiers stopping all vehicles.\nDo you:\n","ending":"none","choices":[{"text":"Try to sneak past the checkpoint.","next":"BarnSurvival","consequence":""},{"text":"Approach the soldiers and ask for help.","next":"CheckpointDeath","consequence":""}]},"CheckpointDeath":{"title":"Approaching the soldiers","narration":"You approach the soldiers, hoping for help.\nHowever, they see you as a threat and open fire immediately.\nYou and Alex are hit and fall to the ground.\n","ending":"death","choices":[]},"BarnSurvival":{"title":"The old road","narration":"You and Alex find an old road leading out of the city. It's not under patrol.\nYou decide to pass through the abandoned road. You're leaving, even if on foot.\nYou spend all night navigating the dark, overgrown path.\nYou're miles away, and need to rest for a while. You find an old barn.\nYou both enter and lay down to rest.\nSuddenly, you hear noises outside. Zombies have found you.\nYou and Alex try to defend yourselves, but there are too many.\nAlex pushes you aside. 'Go! I'll hold them off!'\nYou run out of the barn, hearing Alex's last stand behind you.\nYou manage to escape, but you lost your only friend in this nightmare.\nYou are now alone, but alive. You vow to survive, no matter what.\nYou spend a few days walking towards the next town.\nYou're out of food and water, and your strength is fading.\nJust when you think you can't go on, a car pulls up beside you.\nThe driver offers you a ride.\nYou get in, thank the driver, and fall asleep, exhausted but hopeful.\nIn the neighbouring town, you're watching the news, which reports that the military has contained the outbreak.\nSome survivors are being evacuated, and the situation is stabilizing.\nAlex really gave you a chance to live. You feel grateful and determined to make it through this.\n","ending":"survival1","choices":[]},"EscapeFromHorde":{"title":"Escape from the horde","narration":"You barely escape the horde of zombies without being noticed.\nYou run through the dark streets, heart pounding.\nAs you pass a school, you see a group of survivors getting inside.\nDo you:\n","ending":"none","choices":[{"text":"Try to join the group.","next":"JoinSurvivors","consequence":""},{"text":"Keep running and find your own way.","next":"AbandonedChurch","consequence":""}]},"JoinSurvivors":{"title":"Join the survivors","narration":"You approach the group of survivors at the school. They look wary but let you in after a brief conversation.\nNot everyone is happy to see you, one of the leaders tells you you should earn their trust.\nDo you:\n","ending":"none","choices":[{"text":"Try to prove yourself by taking on dangerous tasks, and helping out the group.","next":"SchoolTrustedSurvival","consequence":""},{"text":"Play it safe and help with minor chores.","next":"SchoolUntrustedDeath","consequence":""}]},"SchoolTrustedSurvival":{"title":"Last night at the school — trusted","narration":"You throw yourself into dangerous tasks, risking your life to prove your worth.\nYour bravery earns you the respect of the group, and you become a valued member.\nIt's only been a few days, but you feel hope towards the future.\nOne night, as you and Alex are on watch, you receive a radio transmission.\nIt's a distress call from a group that was gathering supplies.\nThey are being chased by the military, and are about to get to the school.\nEverybody is on high alert, knowing the danger is close. You see them approaching.\nThe military stops as they reach the perimeter of the school. You hear them call reinforcements.\nThe group is panicking, everyone's fingers are on the triggers.\nBut the military is not attacking, they are just waiting.\nThey have more troops and armament, but they are not making a move.\nYou decide to radio everyone and tell them to stand down and take cover.\nMaybe if you show you're not a threat, they will leave.\nThe other leaders follow your lead and stand down. Everyone takes cover and waits.\nFor hours, tension is palpable as you all wait for the military's next move.\nDawn comes, and you see hesitation and confusion in the military.\nAs you wonder why, you hear a helicopter approaching the zone.\nThere's a speaker on board, and it's repeating the next message:\n\"Attention all survivors, we are here to help. The outbreak is under control.\"\n\"The military will not open fire to any surviving civilians.\"\nThe military lowers their weapons, and after a moment of silence...\nEveryone cheers. The military joins the celebration, and you decide to join them.\nYou find the helicopter, it landed on the city hall.\nYou see a group of survivors being evacuated. You join them, hopeful for a better future.\nThese past days have been hell, but you made it out with Alex and a new group of friends.\nYou all share stories of your experiences, finding comfort in each other's company.\n","ending":"survival2","choices":[]},"SchoolUntrustedDeath":{"title":"Last night at the school — no trust","narration":"You decide to play it safe, helping with minor chores and staying out of trouble.\nA few days pass, and you finally feel you can sleep without looking over your shoulder.\nOne night, as you and Alex are on watch, you receive a radio transmission.\nIt's a distress call from a group that was gathering supplies.\nThey are being chased by the military, and are about to get to the school.\nEverybody is on high alert, knowing the danger is close. You see them approaching.\nThe military stops as they reach the perimeter of the school. You hear them call reinforcements.\nThe group is panicking, everyone's fingers are on the triggers.\nBut the military is not attacking, they are just waiting.\nThey have more troops and armament, but they are not making a move.\nYou decide to radio everyone and tell them to stand down and take cover.\nMaybe if you show you're not a threat, they will leave.\nThere's a moment of tension and silence... But it doesn't last long.\nAnother leader says, 'We can't wait for them to make the first move!'\nThe group takes the first shot, and chaos erupts.\nThe military responds with overwhelming force.\nThey fire indiscriminately, annihilating everyone in their path.\nYou both are not the exception.\n","ending":"death","choices":[]},"AbandonedChurch":{"title":"The abandoned church","narration":"You decide not to join the group, preferring to find your own way.\nYou reach city limits, and an old church that seems untouched by the chaos.\nYou take refuge inside, hoping for it to be a safe haven.\nA few days pass, and you finally feel you can sleep without looking over your shoulder.\nBut one day, as you cook, you hear voices and radio outside.\nThey know you're there. Are they friend or foe?\nDo you:\n","ending":"none","choices":[{"text":"Hide and wait to see what they do.","next":"ChurchHideSurvival","consequence":""},{"text":"Don't take any chances and prepare for a fight.","next":"ChurchFightSurvival","consequence":""}]},"ChurchHideSurvival":{"title":"Hide in the church","narration":"You decide to hide and wait, holding your breath as the voices draw closer.\nThe steps fade away, and you let out a sigh of relief.\nAs you listen closely, you hear a helicopter entering the area.\nThere's a speaker on board, and it's repeating the next message:\n\"Attention all survivors, we are here to help. The outbreak is under control.\"\n\"The military will not open fire to any surviving civilians.\"\nYou still have doubts, but it might be really over.\nYou decide to leave the church and try to find the helicopter.\nYou reach the city hall, where the helicopter is landing.\nYou see a group of survivors being evacuated. You join them, hoping for a better future.\nAs you board the helicopter, you look back at the city, now a shadow of its former self.\nYou feel a mix of relief and sadness, but also hope for a new beginning.\n","ending":"survival2","choices":[]},"ChurchFightSurvival":{"title":"Fight in the church","narration":"You hear them approach, your heart races. You grip your weapon, and accidentally make a noise.\nThe voices stop, they turn directly to the church. This is it.\nThey shine flashlights into the church, Alex looks at you, nods in fear.\nAlex shoots one of them, and chaos erupts.\nIn the confusion, you manage to take down the group, it's over quickly.\nAs you catch your breath, you hear an helicopter approaching.\nThere's a speaker on board, and it's repeating the next message:\n\"Attention all survivors, we are here to help. The outbreak is under control.\"\n\"The military will not open fire to any surviving civilians.\"\nYou're both in silence. If that message is true, did you just kill people who were trying to help?\nYou decide to leave the church and try to find the helicopter.\nYou reach the city hall, where the helicopter is landing.\nYou see a group of survivors being evacuated. So it's true, the outbreak is over.\nMaybe if you had trusted them, you wouldn't have had to kill.\nYou join the group, with a bittersweet feeling in your heart.\n","ending":"survival1","choices":[]}}}</script>
+<script>
+'use strict';
+(() => {
+  const story = JSON.parse(document.getElementById('story-data').textContent);
+  const SCENES = story.scenes;
+  const SAVE_KEY = 'days-of-survival-beta-01';
+  const $ = id => document.getElementById(id);
+  const menu = $('menu-view'), play = $('play-view');
+  const narr = $('narration'), choices = $('choices');
+  const overlay = $('modal-overlay');
+  const modalIds = ['help-modal','feedback-modal','restart-modal'];
+  let sceneId = story.start, choiceCount = 0, visited = [], consequence = '', rating = 0;
+  let playing = false, revealing = false, revealAnimation = null, revealToken = 0;
+  let activeModal = null, lastFocus = null;
+  const saveAvailable = (() => {try {localStorage.setItem('__dos_test','1');localStorage.removeItem('__dos_test');return true;}catch {return false;}})();
+  const readSave = () => {
+    if (!saveAvailable) return null;
+    try { const data=JSON.parse(localStorage.getItem(SAVE_KEY));
+      if (!data || !SCENES[data.sceneId] || !Array.isArray(data.visited)) return null;
+      return data;
+    } catch {return null;}
+  };
+  const persist = () => {
+    if (!saveAvailable) return;
+    try {localStorage.setItem(SAVE_KEY, JSON.stringify({sceneId,choiceCount,visited,consequence}));}catch{}
+  };
+  const updateContinue = () => {$('continue-btn').hidden = !readSave();};
+  const finishReveal = () => {
+    revealToken++;
+    if(revealAnimation) cancelAnimationFrame(revealAnimation);
+    revealAnimation = null; revealing = false;
+    narr.textContent = SCENES[sceneId].narration.trim();
+    narr.classList.remove('cursor');
+    $('skip-btn').hidden = true;
+    showActions();
+  };
+  function begin() {
+    sceneId = story.start; choiceCount = 0; visited = []; consequence = '';
+    showPlay(); renderScene();
+  }
+  function showPlay() {playing=true;menu.hidden=true;play.hidden=false;window.scrollTo(0,0);}
+  function showMenu() {playing=false;revealToken++;if(revealAnimation)cancelAnimationFrame(revealAnimation);menu.hidden=false;play.hidden=true;updateContinue();window.scrollTo(0,0);}
+  function continueGame() {
+    const saved=readSave(); if(!saved) return begin();
+    sceneId=saved.sceneId; choiceCount=Math.max(0,Number(saved.choiceCount)||0);
+    visited=saved.visited.filter(id=>SCENES[id]);consequence=String(saved.consequence||'');
+    showPlay();renderScene();
+  }
+  function getAct(key) {
+    const apartment=['FortifyApartment','ApartmentUnderSiege','GateDeath'];
+    const road=['EscapeCity','HospitalDeath','MilitaryCheckpoint','CheckpointDeath','BarnSurvival','EscapeFromHorde'];
+    const school=['JoinSurvivors','SchoolTrustedSurvival','SchoolUntrustedDeath'];
+    const church=['AbandonedChurch','ChurchHideSurvival','ChurchFightSurvival'];
+    if(apartment.includes(key)) return ['DAY 02 / HOLD THE LINE','THE APARTMENT','⌂'];
+    if(road.includes(key)) return ['DAY 03 / NO WAY BACK','THE STREETS','↗'];
+    if(school.includes(key)) return ['DAY 04 / A FRAGILE ALLIANCE','THE SCHOOL','✳'];
+    if(church.includes(key)) return ['DAY 05 / LAST REFUGE','THE CHURCH','✝'];
+    return ['DAY 01 / THE OUTBREAK','THE CITY','✢'];
+  }
+  function renderScene() {
+    revealToken++;
+    if(revealAnimation) cancelAnimationFrame(revealAnimation);
+    revealAnimation=null;revealing=true;
+    if(!visited.includes(sceneId)) visited.push(sceneId);
+    persist();
+    const scene=SCENES[sceneId], act=getAct(sceneId), label=String(visited.length).padStart(2,'0');
+    $('visited').textContent=label;
+    $('decisions').textContent=String(choiceCount).padStart(2,'0');
+    $('status').textContent=scene.ending==='none'?'Ongoing':scene.ending==='death'?'Fallen':'Survived';
+    $('act-label').textContent=act[0];$('scene-location').textContent=act[1];$('banner-symbol').textContent=act[2];
+    $('scene-title').textContent=scene.title;$('scene-number').textContent=label;
+    $('consequence').hidden=!consequence;$('consequence').textContent=consequence; // Escaped as plain text.
+    narr.textContent='';narr.classList.add('cursor');
+    $('skip-btn').hidden=false; $('choices-wrapper').hidden=true; $('ending-card').hidden=true; $('ending-actions').hidden=true;
+    const content=scene.narration.trim(); let shown=0, last=0; const token=revealToken;
+    const msPerChar=11;
+    function tick(time) {
+      if(token!==revealToken || !playing) return;
+      if(!last) last=time;
+      const elapsed=Math.min(50,time-last);last=time;
+      shown=Math.min(content.length,shown+Math.max(1,Math.floor(elapsed/msPerChar)));
+      narr.textContent=content.slice(0,shown);
+      if(shown<content.length){revealAnimation=requestAnimationFrame(tick)} else finishReveal();
+    }
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){finishReveal();} else revealAnimation=requestAnimationFrame(tick);
+  }
+  function showActions() {
+    const scene=SCENES[sceneId];choices.replaceChildren();
+    if(scene.ending !== 'none') {
+      $('ending-card').hidden=false;$('ending-actions').hidden=false;
+      const dead=scene.ending==='death';
+      $('ending-card').classList.toggle('death',dead);
+      $('ending-icon').textContent=dead?'×':'✦';
+      $('ending-label').textContent=dead?'END OF THE ROAD':'YOU MADE IT';
+      $('ending-title').textContent=dead?'You died.':'You survived.';
+      $('ending-desc').textContent=dead?'This ending is not the only one.':'A different decision might have changed everything.';
+      return;
+    }
+    $('choices-wrapper').hidden=false;
+    scene.choices.forEach((choice,i)=>{
+      const b=document.createElement('button');b.type='button';b.className='choice';
+      const number=document.createElement('span');number.className='choice-number';number.textContent=String(i+1).padStart(2,'0');
+      const label=document.createElement('span');label.className='choice-label';label.textContent=choice.text;
+      const arrow=document.createElement('span');arrow.className='choice-arrow';arrow.textContent='→';arrow.setAttribute('aria-hidden','true');
+      b.append(number,label,arrow);b.addEventListener('click',()=>choose(i));choices.append(b);
+    });
+  }
+  function choose(index) {
+    if(!playing || revealing || !SCENES[sceneId].choices[index]) return;
+    const choice=SCENES[sceneId].choices[index];
+    sceneId=choice.next;consequence=choice.consequence;choiceCount++;
+    renderScene();const panel=document.querySelector('.story-panel');if(panel)panel.scrollIntoView({behavior:'instant',block:'start'});
+  }
+  function openModal(name) {
+    activeModal=name;lastFocus=document.activeElement;overlay.hidden=false;
+    modalIds.forEach(id=>$(id).hidden=(id!==name+'-modal'));
+    // Ensure the dialog title matches the open content for screen readers.
+    $('modal-dialog').setAttribute('aria-labelledby', name==='help'?'modal-title':name==='restart'?'modal-title-restart':'modal-title-feedback');
+    $('modal-close').focus();
+  }
+  function closeModal(){overlay.hidden=true;activeModal=null;if(lastFocus?.focus)lastFocus.focus();}
+  function feedbackText() {
+    const parts=['DAYS OF SURVIVAL — Beta 0.1 feedback',`Rating: ${rating||'Not specified'}/5`,`Highlight: ${$('liked').value}`,`Notes: ${$('feedback-text').value.trim()||'No additional notes'}`,`Scenes visited: ${visited.length} | Decisions: ${choiceCount}`];
+    if(playing && SCENES[sceneId]?.ending!=='none')parts.push(`Ending: ${SCENES[sceneId].ending}`);
+    return parts.join('\n');
+  }
+  $('start-btn').addEventListener('click',()=>{if(readSave())openModal('restart');else begin();});
+  $('continue-btn').addEventListener('click',continueGame);
+  $('menu-btn').addEventListener('click',showMenu);
+  $('restart-btn').addEventListener('click',()=>openModal('restart'));
+  $('again-btn').addEventListener('click',begin);
+  $('help-btn').addEventListener('click',()=>openModal('help'));
+  $('feedback-top').addEventListener('click',()=>openModal('feedback'));
+  $('feedback-end').addEventListener('click',()=>openModal('feedback'));
+  $('help-done').addEventListener('click',closeModal);
+  $('modal-close').addEventListener('click',closeModal);
+  $('restart-cancel').addEventListener('click',closeModal);
+  $('restart-confirm').addEventListener('click',()=>{closeModal();begin();});
+  $('skip-btn').addEventListener('click',finishReveal);
+  overlay.addEventListener('click',event=>{if(event.target===overlay)closeModal();});
+  $('rating-holder').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{rating=Number(b.dataset.rating);$('rating-holder').querySelectorAll('button').forEach(el=>el.setAttribute('aria-pressed',String(el===b)));}));
+  $('feedback-preview').addEventListener('click',()=>{$('feedback-result').hidden=false;$('feedback-result').textContent=feedbackText();$('feedback-notice').textContent='Copy this text and send it to the creator.';});
+  $('feedback-copy').addEventListener('click',async()=>{
+    const text=feedbackText();$('feedback-result').hidden=false;$('feedback-result').textContent=text;
+    try{await navigator.clipboard.writeText(text);$('feedback-notice').textContent='Copied! Send it to the creator by message.';}
+    catch{$('feedback-notice').textContent='Automatic copy unavailable. Select the preview text and copy it manually.';}
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape' && activeModal){closeModal();return;}
+    if(activeModal){if(event.key==='Tab'){const els=Array.from(overlay.querySelectorAll('button:not([hidden]),select:not([hidden]),textarea:not([hidden])')).filter(el=>el.getClientRects().length);const first=els[0],last=els.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}return;}
+    if(!playing||event.altKey||event.ctrlKey||event.metaKey||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;
+    if((event.code==='Space'||event.key===' ')&&revealing){event.preventDefault();finishReveal();return;}
+    if(!revealing&& /^[1-9]$/.test(event.key)){choose(Number(event.key)-1);}
+  });
+  updateContinue();
+})();
+</script>
+</body>
+</html>
